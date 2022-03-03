@@ -1,2 +1,2 @@
 # tarea-universidad
-this is a repository for my university homework
+this is a repository for my homework

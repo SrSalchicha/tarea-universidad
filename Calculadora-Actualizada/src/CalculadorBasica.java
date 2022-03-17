@@ -23,7 +23,6 @@ public class CalculadorBasica extends JFrame implements ActionListener{
         button[15] = new JButton(".");
         button[16] = new JButton("=");
         button[17] = new JButton("New");
-
         //add components
         setLayout(new BorderLayout());
         higher.setLayout(new BorderLayout());

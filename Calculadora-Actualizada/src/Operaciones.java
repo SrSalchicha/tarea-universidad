@@ -1,77 +1,214 @@
+import java.beans.Expression;
 import java.io.Serializable;
 
 public final class Operaciones {
 
-    public Operaciones(){
+    public Operaciones() {
 
     }
 
-    public Double Op(String s){
-        //Initialization of objects
-        char Expresion[] = s.toCharArray();
-        String Numbers[] = new String[3];
-        Double result[] = new Double[2];
+    public Double Op(String s) {
+        //Initialization
+        s += ":";
+        double result = 0;
+        char type = 'n';
+        char type2 = 'n';
+        int index = 0;
+        String variable[] = new String[3];
+        variable[0] = "";
+        variable[1] = "";
+        variable[2] = "";
+        char Numbers[] = s.toCharArray();
+
 
         //Verification array
-        int operatorIndex = 0;
-        for (char c: Expresion) {
+        for (char c : Numbers) {
+            boolean expression = c != '+' && c != '-' && c != '*' && c != '/' && c != ':';
+            System.out.println(c);
+            switch (index) {
 
-            // if operator doesn't equals to (+-/) Numbers - 0 can get the char value
-            final Serializable serializable = (c != '+' && c != '-' && c != '/' && c != '*') ? c : "";
-            switch (operatorIndex){
-                case 0 -> Numbers[0] += serializable;
-                case 1 -> Numbers[1] += serializable;
-                case 2 -> Numbers[2] += serializable;
+                case 0 -> {
+                    //Verificate the expresion
+                    if (expression) {
+                        variable[0] += String.valueOf(c);
+                    } else {
+                        type = c;
+                        index = 1;
+
+                    }
+                }
+
+                case 1 -> {
+                    if (expression) {
+                        variable[1] += String.valueOf(c);
+                    }
+                    else {
+                        if (c != '*' && c != '/') {
+                            switch (type) {
+                                case '+' -> {
+                                    if (variable[0] != "" && variable[1] != ""){
+                                        result += Double.parseDouble(variable[0]) + Double.parseDouble(variable[1]);
+                                        variable[0] = "";
+                                        variable[1] = "";
+                                        type = c;
+                                    }
+                                    else{
+                                        result += Double.parseDouble(variable[1]);
+                                        variable[0] = "";
+                                        variable[1] = "";
+                                        type = c;
+                                    }
+                                }
+                                case '-' -> {
+                                    if (variable[0] != "" && variable[1] != ""){
+                                        result += Double.parseDouble(variable[0]) - Double.parseDouble(variable[1]);
+                                        variable[0] = "";
+                                        variable[1] = "";
+                                        type = c;
+                                    }
+                                    else{
+                                        result -= Double.parseDouble(variable[1]);
+                                        variable[0] = "";
+                                        variable[1] = "";
+                                        type = c;
+                                    }
+                                }
+                                case '*' -> {
+                                    result += Double.parseDouble(variable[0]) * Double.parseDouble(variable[1]);
+                                    variable[0] = "";
+                                    variable[1] = "";
+                                    type = c;
+                                }
+                                case '/' -> {
+                                    result += Double.parseDouble(variable[0]) / Double.parseDouble(variable[1]);
+                                    variable[0] = "";
+                                    variable[1] = "";
+                                    type = c;
+                                }
+                            }
+                        } else {
+                            type2 = c;
+                            index = 2;
+                        }
+                    }
+                }
+
+                case 2 -> {
+                    if (expression) {
+                        variable[2] += String.valueOf(c);
+                    }
+                    else if (c != ':')
+                    {
+                        switch (type2) {
+                            case '*' -> {
+                                switch (type) {
+                                    case '+' -> {
+                                        result += Double.parseDouble(variable[0]) + (Double.parseDouble(variable[1]) * Double.parseDouble(variable[2]));
+                                        variable[0] = String.valueOf(result);
+                                        variable[1] = "";
+                                        type = c;
+                                        index = 1;
+                                        result = 0;
+                                    }
+                                    case '-' -> {
+                                        result += Double.parseDouble(variable[0]) - (Double.parseDouble(variable[1]) * Double.parseDouble(variable[2]));
+                                        variable[0] = String.valueOf(result);
+                                        variable[1] = "";
+                                        type = c;
+                                        index = 1;
+                                        result = 0;
+                                    }
+                                    case '*' -> {
+                                        result += Double.parseDouble(variable[0]) * Double.parseDouble(variable[1]) * Double.parseDouble(variable[2]);
+                                        variable[0] = String.valueOf(result);
+                                        variable[1] = "";
+                                        type = c;
+                                        index = 1;
+                                        result = 0;
+                                    }
+                                    case '/' -> {
+                                        result += Double.parseDouble(variable[0]) / Double.parseDouble(variable[1]) * Double.parseDouble(variable[2]);
+                                        variable[0] = String.valueOf(result);
+                                        variable[1] = "";
+                                        type = c;
+                                        index = 1;
+                                        result = 0;
+                                    }
+                                }
+                            }
+                            case '/' -> {
+                                switch (type) {
+                                    case '+' -> {
+                                        result += Double.parseDouble(variable[0]) + (Double.parseDouble(variable[1]) / Double.parseDouble(variable[2]));
+                                        variable[0] = String.valueOf(result);
+                                        variable[1] = "";
+                                        type = c;
+                                        index = 1;
+                                        result = 0;
+                                    }
+                                    case '-' -> {
+                                        result += Double.parseDouble(variable[0]) - (Double.parseDouble(variable[1]) / Double.parseDouble(variable[2]));
+                                        variable[0] = String.valueOf(result);
+                                        variable[1] = "";
+                                        type = c;
+                                        index = 1;
+                                        result = 0;
+                                    }
+                                    case '*' -> {
+                                        result += Double.parseDouble(variable[0]) * Double.parseDouble(variable[1]) / Double.parseDouble(variable[2]);
+                                        variable[0] = String.valueOf(result);
+                                        variable[1] = "";
+                                        type = c;
+                                        index = 1;
+                                        System.out.println(result);
+                                        result = 0;
+                                    }
+                                    case '/' -> {
+                                        result += Double.parseDouble(variable[0]) / Double.parseDouble(variable[1]) / Double.parseDouble(variable[2]);
+                                        variable[0] = String.valueOf(result);
+                                        variable[1] = "";
+                                        type = c;
+                                        result = 0;
+                                    }
+                                }
+
+                            }
+                        }
+
+                    }
+                    else {
+                        switch (type2) {
+                            case '*' -> {
+                                switch (type) {
+                                    case '+' -> result += Double.parseDouble(variable[0]) + (Double.parseDouble(variable[1]) * Double.parseDouble(variable[2]));
+
+                                    case '-' -> result += Double.parseDouble(variable[0]) - (Double.parseDouble(variable[1]) * Double.parseDouble(variable[2]));
+
+                                    case '*' -> result += Double.parseDouble(variable[0]) * Double.parseDouble(variable[1]) * Double.parseDouble(variable[2]);
+
+                                    case '/' -> result += Double.parseDouble(variable[0]) / Double.parseDouble(variable[1]) * Double.parseDouble(variable[2]);
+                                }
+                            }
+                            case '/' -> {
+                                switch (type) {
+                                    case '+' -> result += Double.parseDouble(variable[0]) + (Double.parseDouble(variable[1]) / Double.parseDouble(variable[2]));
+
+                                    case '-' -> result += Double.parseDouble(variable[0]) - (Double.parseDouble(variable[1]) / Double.parseDouble(variable[2]));
+
+                                    case '*' -> result += Double.parseDouble(variable[0]) * Double.parseDouble(variable[1]) / Double.parseDouble(variable[2]);
+
+                                    case '/' -> result += Double.parseDouble(variable[0]) / Double.parseDouble(variable[1]) / Double.parseDouble(variable[2]);
+
+                                }
+
+                            }
+                        }
+
+                    }
+                }
+
             }
-
-            switch (c){
-                case '+' -> {
-                    switch (operatorIndex){
-                        case 0 -> {
-
-                        }
-                        case 1 , 2 -> {
-
-                        }
-                    }
-                }
-                case '-' ->{
-                    switch (operatorIndex){
-                        case 0 -> {
-
-                        }
-                        case 1 , 2 -> {
-
-                        }
-                    }
-                }
-                case '/' ->{
-                    switch (operatorIndex){
-                        case 0 -> {
-
-                        }
-                        case 1 , 2 -> {
-
-                        }
-                    }
-                }
-                case '*' ->{
-                    switch (operatorIndex){
-                        case 0 -> {
-
-                        }
-                        case 1 , 2 -> {
-
-                        }
-                    }
-                }
-            }
-
-
-
         }
-        return result[0] + result[1] + result[2];
+        return result;
     }
-
-
 }

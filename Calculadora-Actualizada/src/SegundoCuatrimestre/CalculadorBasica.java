@@ -1,5 +1,6 @@
+package SegundoCuatrimestre;
+
 import javax.swing.*;
-import javax.swing.plaf.DimensionUIResource;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -79,5 +80,6 @@ public class CalculadorBasica extends JFrame implements ActionListener{
         }
 
     }
+
 
 }

@@ -1,6 +1,6 @@
-package SegundoCuatrimestre;
+package SegundoCuatrimestre.visible;
 
-import SegundoCuatrimestre.CalculadorBasica;
+import SegundoCuatrimestre.visible.CalculadorBasica;
 
 public class Main {
     public static void main(String[] args) {

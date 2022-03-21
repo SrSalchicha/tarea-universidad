@@ -1,7 +1,5 @@
-package SegundoCuatrimestre;
+package SegundoCuatrimestre.ArrayExpresion;
 
-import java.beans.Expression;
-import java.io.Serializable;
 
 public final class Operaciones {
 
@@ -49,7 +47,7 @@ public final class Operaciones {
                             switch (type) {
                                 case '+' -> {
                                     if (variable[0] != "" && variable[1] != ""){
-                                        result += Double.parseDouble(variable[0]) + Double.parseDouble(variable[1]);
+                                        result += BReturns.ReturnSum(variable[0], variable[1]);
                                         variable[0] = "";
                                         variable[1] = "";
                                         type = c;
@@ -63,7 +61,7 @@ public final class Operaciones {
                                 }
                                 case '-' -> {
                                     if (variable[0] != "" && variable[1] != ""){
-                                        result += Double.parseDouble(variable[0]) - Double.parseDouble(variable[1]);
+                                        result += BReturns.ReturnRes(variable[1], variable[0]);
                                         variable[0] = "";
                                         variable[1] = "";
                                         type = c;
@@ -76,16 +74,32 @@ public final class Operaciones {
                                     }
                                 }
                                 case '*' -> {
-                                    result += Double.parseDouble(variable[0]) * Double.parseDouble(variable[1]);
-                                    variable[0] = "";
-                                    variable[1] = "";
-                                    type = c;
+                                    if (variable[0] != "" && variable[1] != ""){
+                                        result += BReturns.ReturnMul(variable[0], variable[1]);
+                                        variable[0] = "";
+                                        variable[1] = "";
+                                        type = c;
+                                    }
+                                    else{
+                                        result += Double.parseDouble(variable[1]);
+                                        variable[0] = "";
+                                        variable[1] = "";
+                                        type = c;
+                                    }
                                 }
                                 case '/' -> {
-                                    result += Double.parseDouble(variable[0]) / Double.parseDouble(variable[1]);
-                                    variable[0] = "";
-                                    variable[1] = "";
-                                    type = c;
+                                    if (variable[1] != "" && variable[0] != ""){
+                                        result += Double.parseDouble(variable[0]) / Double.parseDouble(variable[1]);
+                                        variable[0] = "";
+                                        variable[1] = "";
+                                        type = c;
+                                    }
+                                    else {
+                                        result += Double.parseDouble(variable[1]);
+                                        variable[0] = "";
+                                        variable[1] = "";
+                                        type = c;
+                                    }
                                 }
                             }
                         } else {

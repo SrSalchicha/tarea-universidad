@@ -1,4 +1,5 @@
-package SegundoCuatrimestre;
+package SegundoCuatrimestre.visible;
+import SegundoCuatrimestre.ArrayExpresion.Operaciones;
 
 import javax.swing.*;
 import java.awt.*;

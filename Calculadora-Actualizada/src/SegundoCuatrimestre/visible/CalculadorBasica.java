@@ -77,7 +77,7 @@ public class CalculadorBasica extends JFrame implements ActionListener{
         if (e.getSource() == button[16]){
             //aqui va la magia
             Operaciones oper = new Operaciones();
-            display.setText("" + oper.Op(s));
+            display.setText(oper.Op(s));
         }
 
     }
